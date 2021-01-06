@@ -2,6 +2,7 @@ const App = {
 	data() {
 		return {
 			activeIndex: 0, // то, что позволяет определить текущий активный шиг
+			isFinish: false,
 			steps: [
 				{
 					title: 'Основы',
@@ -29,18 +30,19 @@ const App = {
 	methods: {
 		prev() {
 			if (this.activeIndex > 0) {
-				this.activeIndex--
+				this.activeIndex = this.activeIndex - 1
 			}
 		},
 		reset() {
 			this.activeIndex = 0
+			this.isFinish = false
 		},
 		nextOfFinish() {
 			if (this.activeIndex < this.steps.length) {
-				this.activeIndex++
+				this.activeIndex = this.activeIndex + 1
 			}
 			if (this.activeIndex === this.steps.length) {
-				this.activeIndex = -1
+				this.isFinish = true
 			}
 		},
 		setActive(idx) {
@@ -49,7 +51,7 @@ const App = {
 	},
 	computed: {
 		currentStepText() {
-			if (this.activeIndex === -1 || this.activeIndex > this.steps.length) {
+			if (this.isFinish || this.activeIndex > this.steps.length) {
 				return ""
 			}
 			return this.steps[this.activeIndex].text
@@ -58,14 +60,8 @@ const App = {
 			return !this.activeIndex
 		},
 		finishStepButton() {
-			return this.activeIndex === this.steps.length - 1
+			return this.activeIndex === this.steps.length - 1 && !this.isFinish
 		},
-		prevAndNext() {
-			return this.activeIndex > -1
-		},
-		showRestartButton() {
-			return this.activeIndex === -1
-		}
 	}
 }
 

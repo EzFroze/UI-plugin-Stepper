@@ -28,10 +28,10 @@
         </li>
       </ul>
       <div>
-        <button class="btn" @click="prev" :disabled="disablePrevButton" v-if="prevAndNext">Назад</button>
-        <button class="btn primary" @click="nextOfFinish" v-if="!finishStepButton && prevAndNext">Вперед</button>
+        <button class="btn" @click="prev" :disabled="disablePrevButton" v-if="!isFinish">Назад</button>
+        <button class="btn primary" @click="nextOfFinish" v-if="!isFinish && activeIndex + 1 < steps.length">Вперед</button>
+        <button class="btn" v-if="isFinish" @click="reset">Начать заново</button>
         <button class="btn primary" v-if="finishStepButton" @click="nextOfFinish">Закончить</button>
-        <button class="btn" v-if="showRestartButton" @click="reset">Начать заново</button>
       </div>
     </div>
   </div>
